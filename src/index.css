@@ -1,0 +1,99 @@
+:root {
+  --bg: #0a0b10;
+  --fg: #ffffff;
+  --muted: rgba(255,255,255,0.65);
+  --panel: rgba(255,255,255,0.08);
+  --panelBorder: rgba(255,255,255,0.12);
+  --brand: #7dd3fc; /* sky-300 */
+  --brandAccent: #38bdf8; /* sky-400 */
+}
+
+* { box-sizing: border-box; }
+html, body, #root { height: 100%; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+}
+
+a { color: inherit; }
+p { color: var(--muted); }
+
+.btn-primary {
+  background: var(--fg);
+  color: var(--bg);
+  border-radius: 10px;
+  padding: 12px 16px;
+  font-weight: 700;
+  border: none;
+}
+
+.btn-ghost {
+  background: color-mix(in oklab, var(--brand) 18%, transparent);
+  color: var(--fg);
+  border: 1px solid color-mix(in oklab, var(--brand) 40%, transparent);
+  border-radius: 10px;
+  padding: 10px 14px;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+  transition: background 200ms ease, border-color 200ms ease, transform 150ms ease;
+}
+
+.btn-ghost:hover {
+  background: color-mix(in oklab, var(--brand) 28%, transparent);
+  border-color: color-mix(in oklab, var(--brand) 55%, transparent);
+}
+
+/* External link button refined styling */
+.btn-external {
+  background: linear-gradient(0deg, color-mix(in oklab, var(--brand) 14%, transparent), color-mix(in oklab, var(--brand) 14%, transparent));
+  color: var(--fg);
+  border: 1px solid color-mix(in oklab, var(--brand) 38%, transparent);
+  border-radius: 12px;
+  padding: 10px 14px;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+  transition: background 200ms ease, border-color 200ms ease, transform 150ms ease, box-shadow 200ms ease;
+  box-shadow: 0 2px 10px color-mix(in oklab, var(--brand) 12%, transparent);
+}
+
+.btn-external:hover {
+  background: linear-gradient(0deg, color-mix(in oklab, var(--brand) 22%, transparent), color-mix(in oklab, var(--brand) 22%, transparent));
+  border-color: color-mix(in oklab, var(--brand) 55%, transparent);
+  box-shadow: 0 4px 16px color-mix(in oklab, var(--brand) 18%, transparent);
+}
+
+.btn-external:active {
+  transform: translateY(1px);
+}
+
+.btn-external:focus-visible {
+  outline: 2px solid var(--brandAccent);
+  outline-offset: 2px;
+}
+
+.btn-ghost:active {
+  transform: translateY(1px);
+}
+
+.btn-ghost:focus-visible {
+  outline: 2px solid var(--brandAccent);
+  outline-offset: 2px;
+}
+
+.chip {
+  display: inline-block;
+  background: color-mix(in oklab, var(--brand) 18%, transparent);
+  color: var(--fg);
+  border: 1px solid color-mix(in oklab, var(--brand) 40%, transparent);
+  padding: 6px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+}
