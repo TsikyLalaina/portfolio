@@ -24,7 +24,6 @@ function SpinningTorusKnot() {
 
 export function Hero3D() {
   const t = useI18n()
-  const placeholders = useUIStore((s) => s.placeholders)
   return (
     <div style={{ width: '100%', height: '100vh', position: 'relative' }}>
       <Canvas shadows camera={{ position: [0, 0, 6], fov: 50 }}>

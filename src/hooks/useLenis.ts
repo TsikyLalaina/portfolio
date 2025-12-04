@@ -8,7 +8,6 @@ export function useLenis() {
     const lenis = new Lenis({
       lerp: 0.1,
       smoothWheel: true,
-      smoothTouch: false,
       syncTouch: true,
     })
     lenisRef.current = lenis

@@ -52,7 +52,7 @@ export function IntroCinematic() {
             exit={{ scaleX: 1, originX: 1 }}
             transition={{ duration: 1.2, delay: 0.6, ease: 'anticipate' }}
             style={{ position: 'absolute', inset: 0, background: 'var(--bg)', pointerEvents: 'none' }}
-            onAnimationComplete={(d) => { /* once sweep completes, auto-dismiss after a short delay */ setTimeout(dismiss, 400) }}
+            onAnimationComplete={() => { /* once sweep completes, auto-dismiss after a short delay */ setTimeout(dismiss, 400) }}
           />
           <button onClick={dismiss} aria-label="Skip intro" style={{
             position: 'absolute', right: 16, bottom: 16,
