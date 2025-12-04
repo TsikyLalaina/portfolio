@@ -51,7 +51,7 @@ export const projects: Project[] = [
     summary: 'Animation-forward portfolio with 3D hero, intro overlay, and transitions.',
     tags: ['React', 'R3F', 'Framer Motion', 'Zustand', 'Lenis'],
     heroColor: 'linear-gradient(135deg, #313860, #2a2f45)',
-    url: 'http://localhost:5173/',
+    url: 'https://portfolio-u3qd.vercel.app/',
     image: new URL('../assets/portfolio.png', import.meta.url).toString(),
     content: [
       'Immersive portfolio featuring a cinematic intro, smooth scroll, and case studies.',
