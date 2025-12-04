@@ -1,10 +1,9 @@
 import { Canvas, useFrame } from '@react-three/fiber'
-import { AccumulativeShadows, Center, Environment, Float, Html, OrbitControls, RandomizedLight, Stars } from '@react-three/drei'
+import { AccumulativeShadows, Center, Environment, Float, OrbitControls, RandomizedLight, Stars } from '@react-three/drei'
 import { EffectComposer, Bloom, Vignette } from '@react-three/postprocessing'
 import { useRef } from 'react'
 import * as THREE from 'three'
 import { useI18n } from '../i18n'
-import { useUIStore } from '../store/ui'
 
 function SpinningTorusKnot() {
   const ref = useRef<THREE.Mesh>(null)
