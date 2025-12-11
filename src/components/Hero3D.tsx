@@ -24,7 +24,7 @@ function SpinningTorusKnot() {
 export function Hero3D() {
   const t = useI18n()
   return (
-    <div style={{ width: '100%', height: '100vh', position: 'relative' }}>
+    <div style={{ width: '100%', minHeight: '100vh', position: 'relative', paddingTop: 64 }}>
       <Canvas shadows camera={{ position: [0, 0, 6], fov: 50 }}>
         {/* Keep the canvas transparent to show page background, so theme applies */}
         {/* Remove color background to let CSS var background through */}
@@ -55,10 +55,10 @@ export function Hero3D() {
         <OrbitControls enableDamping enableZoom={false} />
       </Canvas>
 
-      <div style={{ position: 'absolute', inset: 0, display: 'grid', placeItems: 'center', pointerEvents: 'none' }}>
-        <div style={{ textAlign: 'center' }}>
-          <h1 style={{ fontSize: 64, lineHeight: 1.05, margin: 0, color: 'var(--fg)' }}>{t('hero_title')}</h1>
-          <p style={{ fontSize: 18, opacity: 0.85, marginTop: 12, color: 'var(--fg)' }}>{t('hero_tagline')}</p>
+      <div style={{ position: 'absolute', inset: 0, display: 'grid', placeItems: 'center', pointerEvents: 'none', padding: '24px' }}>
+        <div style={{ textAlign: 'center', maxWidth: '100%' }}>
+          <h1 style={{ fontSize: 'clamp(32px, 8vw, 64px)', lineHeight: 1.05, margin: 0, color: 'var(--fg)', wordBreak: 'break-word' }}>{t('hero_title')}</h1>
+          <p style={{ fontSize: 'clamp(14px, 4vw, 18px)', opacity: 0.85, marginTop: 12, color: 'var(--fg)' }}>{t('hero_tagline')}</p>
         </div>
       </div>
     </div>

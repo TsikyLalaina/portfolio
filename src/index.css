@@ -9,12 +9,15 @@
 }
 
 * { box-sizing: border-box; }
-html, body, #root { height: 100%; }
-body {
+html { height: 100%; }
+body, #root {
   margin: 0;
   background: var(--bg);
   color: var(--fg);
   font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+}
+body {
+  margin: 0;
 }
 
 a { color: inherit; }
@@ -96,4 +99,18 @@ p { color: var(--muted); }
   padding: 6px 10px;
   border-radius: 999px;
   font-size: 12px;
+}
+
+/* Responsive Design */
+@media (min-width: 768px) {
+  .desktop-nav {
+    display: flex !important;
+  }
+}
+
+@media (max-width: 767px) {
+  nav button[aria-label="Toggle menu"] {
+    display: grid !important;
+    place-items: center;
+  }
 }

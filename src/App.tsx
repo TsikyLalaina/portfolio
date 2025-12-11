@@ -31,7 +31,7 @@ function App() {
     }
   }, [theme])
   return (
-    <div style={{ background: 'var(--bg)', minHeight: '100vh', color: 'var(--fg)' }}>
+    <div style={{ background: 'var(--bg)', color: 'var(--fg)' }}>
       <Navbar />
       <main>
         <section id="home">
