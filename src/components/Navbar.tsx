@@ -36,7 +36,7 @@ export function Navbar() {
     >
       <a href="#home" style={{ color: 'var(--fg)', textDecoration: 'none', fontWeight: 700, display: 'flex', alignItems: 'center', gap: 8, fontSize: 'clamp(14px, 4vw, 16px)' }}>
         <Logo size={32} />
-        <span style={{ display: { xs: 'none', sm: 'inline' } }}>Tsiky Lalaina</span>
+        <span className="navbar-brand-text">Tsiky Lalaina</span>
       </a>
 
       {/* Desktop Navigation */}
