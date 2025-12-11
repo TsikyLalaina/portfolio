@@ -28,21 +28,21 @@ export function IntroCinematic() {
           transition={{ duration: 0.6 }}
           style={{
             position: 'fixed', inset: 0, background: 'radial-gradient(1200px 600px at 50% -10%, var(--brand), var(--bg))',
-            display: 'grid', placeItems: 'center', zIndex: 100,
+            display: 'grid', placeItems: 'center', zIndex: 100, padding: '24px',
           }}
         >
           <motion.div
             initial={{ y: 30, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.8, ease: 'easeOut' }}
-            style={{ textAlign: 'center' }}
+            style={{ textAlign: 'center', maxWidth: '100%' }}
           >
-            <div style={{ fontSize: 16, letterSpacing: 6, textTransform: 'uppercase', opacity: 0.8 }}>Presenting</div>
-            <div style={{ fontSize: 64, fontWeight: 800, marginTop: 8 }}>{name}</div>
+            <div style={{ fontSize: 'clamp(12px, 3vw, 16px)', letterSpacing: 'clamp(2px, 1vw, 6px)', textTransform: 'uppercase', opacity: 0.8 }}>Presenting</div>
+            <div style={{ fontSize: 'clamp(36px, 12vw, 64px)', fontWeight: 800, marginTop: 'clamp(8px, 2vw, 16px)', wordBreak: 'break-word' }}>{name}</div>
             <motion.button
               onClick={dismiss}
               className="btn-primary"
-              style={{ marginTop: 24 }}
+              style={{ marginTop: 'clamp(16px, 4vw, 24px)', fontSize: 'clamp(14px, 3vw, 16px)' }}
               whileTap={{ scale: 0.98 }}
             >Enter</motion.button>
           </motion.div>
@@ -55,8 +55,8 @@ export function IntroCinematic() {
             onAnimationComplete={() => { /* once sweep completes, auto-dismiss after a short delay */ setTimeout(dismiss, 400) }}
           />
           <button onClick={dismiss} aria-label="Skip intro" style={{
-            position: 'absolute', right: 16, bottom: 16,
-            background: 'var(--panel)', border: '1px solid var(--panelBorder)', color: 'var(--fg)', borderRadius: 10, padding: '8px 12px'
+            position: 'absolute', right: 'clamp(12px, 3vw, 16px)', bottom: 'clamp(12px, 3vw, 16px)',
+            background: 'var(--panel)', border: '1px solid var(--panelBorder)', color: 'var(--fg)', borderRadius: 10, padding: 'clamp(6px, 1.5vw, 8px) clamp(10px, 2vw, 12px)', fontSize: 'clamp(12px, 2vw, 14px)'
           }}>Skip</button>
         </motion.div>
       )}
