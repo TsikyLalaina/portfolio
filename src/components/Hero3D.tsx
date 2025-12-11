@@ -24,7 +24,7 @@ function SpinningTorusKnot() {
 export function Hero3D() {
   const t = useI18n()
   return (
-    <div style={{ width: '100%', minHeight: '100vh', position: 'relative', paddingTop: 64 }}>
+    <div style={{ width: '100%', height: '100vh', position: 'relative' }}>
       <Canvas shadows camera={{ position: [0, 0, 6], fov: 50 }}>
         {/* Keep the canvas transparent to show page background, so theme applies */}
         {/* Remove color background to let CSS var background through */}
