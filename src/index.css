@@ -116,10 +116,14 @@ p { color: var(--muted); }
   .desktop-nav {
     display: flex !important;
   }
+  
+  .mobile-controls {
+    display: none !important;
+  }
 }
 
 @media (max-width: 767px) {
-  nav button[aria-label="Toggle menu"] {
+  .menu-toggle {
     display: grid !important;
     place-items: center;
   }

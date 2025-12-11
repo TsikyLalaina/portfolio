@@ -40,31 +40,29 @@ export function Navbar() {
       </a>
 
       {/* Desktop Navigation */}
-      <div style={{ display: 'none' }} className="desktop-nav">
-        <div style={{ display: 'flex', gap: 16, alignItems: 'center' }}>
-          <a href="#projects" style={{ color: 'var(--fg)', opacity: 0.8, fontSize: 14 }}>{t('nav_projects')}</a>
-          <a href="#about" style={{ color: 'var(--fg)', opacity: 0.8, fontSize: 14 }}>{t('nav_about')}</a>
-          <a href="#contact" style={{ color: 'var(--fg)', opacity: 0.8, fontSize: 14 }}>{t('nav_contact')}</a>
-          <a href="https://github.com/TsikyLalaina" target="_blank" rel="noreferrer" aria-label="GitHub" style={{ color: 'var(--fg)', opacity: 0.9, display: 'grid', placeItems: 'center' }}>
-            <FaGithub />
-          </a>
-          <a href="https://www.linkedin.com/in/tsiky-loharanontsoa-7111b2272/" target="_blank" rel="noreferrer" aria-label="LinkedIn" style={{ color: 'var(--fg)', opacity: 0.9, display: 'grid', placeItems: 'center' }}>
-            <FaLinkedin />
-          </a>
-          <button onClick={toggleTheme} aria-label="Toggle theme" style={{
-            background: 'var(--panel)', borderRadius: 8, border: '1px solid var(--panelBorder)', color: 'var(--fg)', padding: '6px 10px', cursor: 'pointer'
-          }}>{theme === 'dark' ? '🌙' : '☀️'}</button>
-          <select value={locale} onChange={(e) => setLocale(e.target.value as any)} aria-label="Language" style={{
-            background: 'var(--panel)', borderRadius: 8, border: '1px solid var(--panelBorder)', color: 'var(--fg)', padding: '6px 10px', cursor: 'pointer'
-          }}>
-            <option value="en">EN</option>
-            <option value="fr">FR</option>
-          </select>
-        </div>
+      <div className="desktop-nav" style={{ display: 'none', gap: 16, alignItems: 'center' }}>
+        <a href="#projects" style={{ color: 'var(--fg)', opacity: 0.8, fontSize: 14 }}>{t('nav_projects')}</a>
+        <a href="#about" style={{ color: 'var(--fg)', opacity: 0.8, fontSize: 14 }}>{t('nav_about')}</a>
+        <a href="#contact" style={{ color: 'var(--fg)', opacity: 0.8, fontSize: 14 }}>{t('nav_contact')}</a>
+        <a href="https://github.com/TsikyLalaina" target="_blank" rel="noreferrer" aria-label="GitHub" style={{ color: 'var(--fg)', opacity: 0.9, display: 'grid', placeItems: 'center' }}>
+          <FaGithub />
+        </a>
+        <a href="https://www.linkedin.com/in/tsiky-loharanontsoa-7111b2272/" target="_blank" rel="noreferrer" aria-label="LinkedIn" style={{ color: 'var(--fg)', opacity: 0.9, display: 'grid', placeItems: 'center' }}>
+          <FaLinkedin />
+        </a>
+        <button onClick={toggleTheme} aria-label="Toggle theme" style={{
+          background: 'var(--panel)', borderRadius: 8, border: '1px solid var(--panelBorder)', color: 'var(--fg)', padding: '6px 10px', cursor: 'pointer'
+        }}>{theme === 'dark' ? '🌙' : '☀️'}</button>
+        <select value={locale} onChange={(e) => setLocale(e.target.value as any)} aria-label="Language" style={{
+          background: 'var(--panel)', borderRadius: 8, border: '1px solid var(--panelBorder)', color: 'var(--fg)', padding: '6px 10px', cursor: 'pointer'
+        }}>
+          <option value="en">EN</option>
+          <option value="fr">FR</option>
+        </select>
       </div>
 
       {/* Mobile Controls */}
-      <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
+      <div style={{ display: 'flex', gap: 8, alignItems: 'center' }} className="mobile-controls">
         <button onClick={toggleTheme} aria-label="Toggle theme" style={{
           background: 'var(--panel)', borderRadius: 8, border: '1px solid var(--panelBorder)', color: 'var(--fg)', padding: '6px 10px', cursor: 'pointer', fontSize: 14
         }}>{theme === 'dark' ? '🌙' : '☀️'}</button>
@@ -76,7 +74,7 @@ export function Navbar() {
         </select>
         <button onClick={() => setMobileMenuOpen(!mobileMenuOpen)} aria-label="Toggle menu" style={{
           background: 'var(--panel)', borderRadius: 8, border: '1px solid var(--panelBorder)', color: 'var(--fg)', padding: '6px 10px', cursor: 'pointer', display: 'none'
-        }}>☰</button>
+        }} className="menu-toggle">☰</button>
       </div>
 
       {/* Mobile Menu */}
