@@ -51,7 +51,7 @@ export const projects: Project[] = [
     summary: 'Animation-forward portfolio with 3D hero, intro overlay, and transitions.',
     tags: ['React', 'R3F', 'Framer Motion', 'Zustand', 'Lenis'],
     heroColor: 'linear-gradient(135deg, #313860, #2a2f45)',
-    url: 'https://portfolio-u3qd.vercel.app/',
+    url: 'https://portfolio-alpha-neon-19.vercel.app/',
     image: new URL('../assets/portfolio.png', import.meta.url).toString(),
     content: [
       'Immersive portfolio featuring a cinematic intro, smooth scroll, and case studies.',
@@ -72,6 +72,35 @@ export const projects: Project[] = [
     ],
     roles: ['Frontend'],
     tech: ['React', 'TypeScript', 'R3F', 'Framer Motion', 'Zustand', 'Lenis'],
+  },
+  {
+    id: 'ink-verse',
+    title: 'Ink Verse',
+    summary: 'AI-assisted writing and manhwa creation suite.',
+    tags: ['Next.js', 'Fastify', 'Prisma', 'Supabase', 'Tailwind'],
+    heroColor: 'linear-gradient(135deg, #22252b, #2e3140)',
+    url: 'https://ink-verse.vercel.app/',
+    github: 'https://github.com/TsikyLalaina/InkVerse',
+    image: new URL('../assets/inkverse.png', import.meta.url).toString(),
+    content: [
+      'Compose chapters with Plot Muse (SSE via Groq) and manage projects/chapters.',
+      'Characters & World managers with traits editors and Supabase Storage uploads.',
+      'Image generation via Fal.ai Flux models with optional BullMQ/Redis queue & webhooks.',
+      'Supabase Auth guards all API routes; Prisma Postgres stores content and history.',
+      'Next.js 14 client with Tailwind and motion; Fastify 5 backend in TypeScript.'
+    ],
+    problem: 'Create an integrated tool for writing and panel generation with robust auth, storage, and scalability.',
+    approach: 'Split architecture: Next.js client + Fastify API with Prisma, Supabase Auth, queues (BullMQ/Upstash), Groq for SSE text, Fal.ai for images.',
+    outcome: 'Full‑stack platform enabling project-centric writing workflows, media generation, and secure, scalable APIs.',
+    process: [
+      'Design the Prisma data model (Project, Chapter, Character, World, Chat, Message).',
+      'Implement Supabase Auth and SSR client integration.',
+      'Add Groq SSE streaming and Fal.ai image generation pipeline.',
+      'Introduce Redis/BullMQ worker and webhooks for queued image jobs.',
+      'Polish UI with Tailwind and motion; add a reader view for chapters.'
+    ],
+    roles: ['Fullstack'],
+    tech: ['Next.js 14', 'Fastify 5', 'TypeScript', 'TailwindCSS', 'Prisma', 'Supabase', 'BullMQ', 'Upstash Redis', 'Groq', 'Fal.ai'],
   },
 ]
 

@@ -3,12 +3,10 @@ import { Navbar } from './components/Navbar'
 import { Hero3D } from './components/Hero3D'
 import { Projects, About, Contact, Footer } from './components/Sections'
 import { Narrative } from './components/Narrative'
-import { useLenis } from './hooks/useLenis'
 import { useEffect } from 'react'
 import { useUIStore } from './store/ui'
 
 function App() {
-  useLenis()
   const theme = useUIStore((s) => s.theme)
   useEffect(() => {
     const root = document.documentElement
