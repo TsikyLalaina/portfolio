@@ -4,6 +4,7 @@ import { EffectComposer, Bloom, Vignette } from '@react-three/postprocessing'
 import { useRef } from 'react'
 import * as THREE from 'three'
 import { useI18n } from '../i18n'
+import { useMobile } from '../hooks/useMobile'
 
 function SpinningTorusKnot() {
   const ref = useRef<THREE.Mesh>(null)
@@ -23,6 +24,7 @@ function SpinningTorusKnot() {
 
 export function Hero3D() {
   const t = useI18n()
+  const isMobile = useMobile()
   return (
     <div style={{ width: '100%', height: '100vh', position: 'relative' }}>
       <Canvas shadows camera={{ position: [0, 0, 6], fov: 50 }}>
@@ -30,10 +32,10 @@ export function Hero3D() {
         {/* Remove color background to let CSS var background through */}
         <fog attach="fog" args={[new THREE.Color('#0a0b10'), 10, 30]} />
 
-        <Stars radius={100} depth={50} count={4000} factor={4} saturation={0} fade speed={1} />
+        <Stars radius={100} depth={50} count={isMobile ? 1000 : 4000} factor={4} saturation={0} fade speed={1} />
 
         <ambientLight intensity={0.25} />
-        <directionalLight position={[6, 6, 6]} intensity={1.1} castShadow shadow-mapSize-width={1024} shadow-mapSize-height={1024} />
+        <directionalLight position={[6, 6, 6]} intensity={1.1} castShadow={!isMobile} shadow-mapSize-width={1024} shadow-mapSize-height={1024} />
 
         <Center>
           <Float speed={1.2} rotationIntensity={0.6} floatIntensity={0.8}>
@@ -41,16 +43,20 @@ export function Hero3D() {
           </Float>
         </Center>
 
-        <AccumulativeShadows temporal frames={80} alphaTest={0.85} scale={12} position={[0, -1.5, 0]}>
-          <RandomizedLight amount={6} radius={8} ambient={0.2} intensity={1} position={[5, 5, -10]} bias={0.001} />
-        </AccumulativeShadows>
+        {!isMobile && (
+          <AccumulativeShadows temporal frames={80} alphaTest={0.85} scale={12} position={[0, -1.5, 0]}>
+            <RandomizedLight amount={6} radius={8} ambient={0.2} intensity={1} position={[5, 5, -10]} bias={0.001} />
+          </AccumulativeShadows>
+        )}
 
         <Environment preset="city" />
 
-        <EffectComposer>
-          <Bloom mipmapBlur intensity={1.3} luminanceThreshold={0.2} luminanceSmoothing={0.02} />
-          <Vignette eskil={false} offset={0.1} darkness={0.8} />
-        </EffectComposer>
+        {!isMobile && (
+          <EffectComposer>
+            <Bloom mipmapBlur intensity={1.3} luminanceThreshold={0.2} luminanceSmoothing={0.02} />
+            <Vignette eskil={false} offset={0.1} darkness={0.8} />
+          </EffectComposer>
+        )}
 
         <OrbitControls enableDamping enableZoom={false} />
       </Canvas>
