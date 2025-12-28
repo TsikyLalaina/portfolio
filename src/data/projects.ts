@@ -24,7 +24,7 @@ export const projects: Project[] = [
     summary: 'Marketing landing page for ALA with a clean, responsive design.',
     tags: ['Landing', 'Web'],
     heroColor: 'linear-gradient(135deg, #1f3b4d, #213547)',
-    url: 'https://ala-azure.vercel.app/',
+    url: 'https://ala-mg.com/',
     github: 'https://github.com/TsikyLalaina/ala-landing-page.git',
     image: new URL('../assets/ala.png', import.meta.url).toString(),
     content: [
@@ -79,7 +79,7 @@ export const projects: Project[] = [
     summary: 'AI-assisted writing and manhwa creation suite.',
     tags: ['Next.js', 'Fastify', 'Prisma', 'Supabase', 'Tailwind'],
     heroColor: 'linear-gradient(135deg, #22252b, #2e3140)',
-    url: 'https://ink-verse.vercel.app/',
+    url: 'https://inkverseapp.com/',
     github: 'https://github.com/TsikyLalaina/InkVerse',
     image: new URL('../assets/inkverse.png', import.meta.url).toString(),
     content: [

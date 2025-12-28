@@ -22,7 +22,7 @@ export const useUIStore = create<UIState>((set, get) => ({
   placeholders: {
     name: 'LOHARANONTSOA Tsiky Lalaina',
     tagline: 'Full-Stack Web Developer | React & Next.js Specialist',
-    email: 'tsikyloharanontsoa@gmail.com',
+    email: 'tsikyloharanontsoa@ala-mg.com',
   },
   setTheme: (t) => set({ theme: t }),
   toggleTheme: () => set({ theme: get().theme === 'dark' ? 'light' : 'dark' }),

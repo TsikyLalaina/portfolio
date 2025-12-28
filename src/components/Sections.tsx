@@ -32,7 +32,9 @@ export function Projects() {
         {projects.map((p) => (
           <motion.div key={p.id} whileHover={{ y: -6, scale: 1.02 }} transition={{ type: 'spring', stiffness: 300, damping: 20 }}>
             <Link to={`/project/${p.id}`} style={{
-              display: 'block',
+              display: 'flex',
+              flexDirection: 'column',
+              height: '100%',
               background: 'var(--panel)',
               border: '1px solid var(--panelBorder)',
               borderRadius: 12,
@@ -48,7 +50,7 @@ export function Projects() {
               <div style={{ fontWeight: 600 }}>{p.title}</div>
               <div style={{ opacity: 0.75, fontSize: 14 }}>{p.tags.join(' • ')}</div>
               {p.tech && p.tech.length > 0 && (
-                <div style={{ opacity: 0.65, fontSize: 13, marginTop: 4 }}>{p.tech.join(' • ')}</div>
+                <div style={{ opacity: 0.65, fontSize: 13, marginTop: 'auto', paddingTop: 4 }}>{p.tech.join(' • ')}</div>
               )}
             </Link>
           </motion.div>
@@ -76,7 +78,7 @@ export function About() {
             📍 Based in Madagascar — Available worldwide.
           </p>
           <div style={{ display: 'flex', gap: 12, marginTop: 8, flexWrap: 'wrap' }}>
-            <a href="mailto:tsikyloharanontsoa@gmail.com" className="chip">Email</a>
+            <a href="mailto:tsikyloharanontsoa@ala-mg.com" className="chip">Email</a>
             <a href="https://github.com/TsikyLalaina" target="_blank" rel="noreferrer" className="chip">GitHub</a>
             <a href="https://www.linkedin.com/in/tsiky-loharanontsoa-7111b2272/" target="_blank" rel="noreferrer" className="chip">LinkedIn</a>
           </div>
@@ -170,7 +172,7 @@ export function Footer() {
       borderTop: '1px solid var(--panelBorder)'
     }}>
       <div style={{ marginBottom: 8 }}>
-        <a href="mailto:tsikyloharanontsoa@gmail.com" className="chip" style={{ marginRight: 6 }}>Email</a>
+        <a href="mailto:tsikyloharanontsoa@ala-mg.com" className="chip" style={{ marginRight: 6 }}>Email</a>
         <a href="https://github.com/TsikyLalaina" target="_blank" rel="noreferrer" className="chip" style={{ marginRight: 6 }}>GitHub</a>
         <a href="https://www.linkedin.com/in/tsiky-loharanontsoa-7111b2272/" target="_blank" rel="noreferrer" className="chip">LinkedIn</a>
       </div>
