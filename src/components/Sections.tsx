@@ -66,7 +66,7 @@ export function About() {
     <SectionWrapper id="about">
       <h2 style={{ color: 'var(--fg)', marginBottom: 16 }}>{t('about_title')}</h2>
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(160px, 1fr))', gap: 16, alignItems: 'start', maxWidth: 1000 }}>
-        <img src={new URL('../assets/profile.JPEG', import.meta.url).toString()} alt="Profile photo" style={{ width: '100%', maxWidth: 160, height: 160, objectFit: 'cover', borderRadius: 16, border: '1px solid var(--panelBorder)' }} />
+        <img src={new URL('../assets/profile.jpg', import.meta.url).toString()} alt="Profile photo" style={{ width: '100%', maxWidth: 160, height: 160, objectFit: 'cover', borderRadius: 16, border: '1px solid var(--panelBorder)' }} />
         <div>
           <p style={{ color: 'var(--muted)', maxWidth: 800 }}>
             I'm a passionate web developer with a Bachelor's degree from EMiT Fianarantsoa, specializing in building modern, scalable, and performance-driven web applications. I transform business challenges into elegant digital solutions that deliver measurable results.
