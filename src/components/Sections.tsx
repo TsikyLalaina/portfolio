@@ -1,5 +1,5 @@
-import { motion, useInView, type Variants } from 'framer-motion'
-import React, { useRef, useState } from 'react'
+import { motion, type Variants } from 'framer-motion'
+import React, { useState } from 'react'
 import { useI18n } from '../i18n'
 import { useUIStore } from '../store/ui'
 import { Link } from 'react-router-dom'
