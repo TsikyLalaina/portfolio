@@ -1,7 +1,7 @@
 import { useParams, Link } from 'react-router-dom'
 import { projects } from '../data/projects'
 import { motion, AnimatePresence } from 'framer-motion'
-import { FiAlertTriangle, FiTool, FiCheckCircle, FiList, FiBarChart2, FiUser, FiCode } from 'react-icons/fi'
+import { FiAlertTriangle, FiTool, FiCheckCircle, FiList, FiBarChart2, FiUser, FiCode, FiExternalLink, FiMonitor } from 'react-icons/fi'
  
 
 export function ProjectPage() {
@@ -20,13 +20,21 @@ export function ProjectPage() {
       >
         <Link to="/" style={{ textDecoration: 'none', color: 'var(--fg)' }}>← Back</Link>
         <h1 style={{ marginTop: 12 }}>{project.title}</h1>
-        <div style={{ borderRadius: 12, margin: '16px 0', border: '1px solid var(--panelBorder)', overflow: 'hidden' }}>
+        
+        <div className="project-preview-container">
+          {project.url && (
+            <div className="project-preview-banner">
+              <FiMonitor className="project-preview-banner-icon" />
+              <span className="project-preview-banner-text">Interactive Preview</span>
+              <span className="project-preview-banner-note">— figures are forward-looking illustrations for demonstration</span>
+            </div>
+          )}
           {project.url ? (
-            <div style={{ position: 'relative', width: '100%', height: 420 }}>
+            <div className="project-iframe-container">
               <iframe
                 src={project.url}
                 title={`${project.title} live preview`}
-                style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', border: 0 }}
+                className="project-iframe"
                 sandbox="allow-same-origin allow-scripts allow-forms"
                 scrolling="yes"
               />
@@ -37,71 +45,95 @@ export function ProjectPage() {
             <div style={{ height: 240, background: project.heroColor }} />
           )}
         </div>
+        
         <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', marginBottom: 16 }}>
           {project.tags.map((t) => (
             <span key={t} className="chip">{t}</span>
           ))}
         </div>
+        
         {project.url && (
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
-            <div style={{ color: 'var(--muted)', fontSize: 14 }}>Live preview above</div>
-            <a href={project.url} target="_blank" rel="noreferrer" className="btn-external" aria-label="Open live site in a new tab">
-              <span>Open live site</span>
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden>
-                <path d="M7 17L17 7M17 7H9M17 7V15" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-              </svg>
+          <div className="project-preview-info">
+            <div className="project-live-indicator">
+              <span className="project-live-dot" />
+              Live preview above
+            </div>
+            <a href={project.url} target="_blank" rel="noreferrer" className="btn-open-live" aria-label="Open live site in a new tab">
+              <span>Open Live Site</span>
+              <FiExternalLink className="btn-open-live-icon" />
             </a>
           </div>
         )}
         
         <div style={{ display: 'grid', gap: 12, marginTop: 16 }}>
           {project.content.map((para, i) => (
-            <p key={i} style={{ color: 'var(--muted)' }}>{para}</p>
+            <p key={i} style={{ color: 'var(--muted)', lineHeight: 1.7 }}>{para}</p>
           ))}
         </div>
 
         <div style={{
           display: 'grid', gap: 16, gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', marginTop: 24
         }}>
-          <div style={{ background: 'var(--panel)', border: '1px solid var(--panelBorder)', borderRadius: 12, padding: 16 }}>
-            <h3 style={{ display: 'flex', alignItems: 'center', gap: 8 }}><FiAlertTriangle /> Problem</h3>
-            <p style={{ color: 'var(--muted)' }}>{project.problem}</p>
+          <div className="project-detail-card">
+            <h3><FiAlertTriangle /> Problem</h3>
+            <p>{project.problem}</p>
           </div>
-          <div style={{ background: 'var(--panel)', border: '1px solid var(--panelBorder)', borderRadius: 12, padding: 16 }}>
-            <h3 style={{ display: 'flex', alignItems: 'center', gap: 8 }}><FiTool /> Approach</h3>
-            <p style={{ color: 'var(--muted)' }}>{project.approach}</p>
+          <div className="project-detail-card">
+            <h3><FiTool /> Approach</h3>
+            <p>{project.approach}</p>
           </div>
-          <div style={{ background: 'var(--panel)', border: '1px solid var(--panelBorder)', borderRadius: 12, padding: 16 }}>
-            <h3 style={{ display: 'flex', alignItems: 'center', gap: 8 }}><FiCheckCircle /> Outcome</h3>
-            <p style={{ color: 'var(--muted)' }}>{project.outcome}</p>
+          <div className="project-detail-card">
+            <h3><FiCheckCircle /> Outcome</h3>
+            <p>{project.outcome}</p>
           </div>
         </div>
 
         <div style={{ display: 'grid', gap: 16, marginTop: 24 }}>
           {project.process && (
-            <div style={{ background: 'var(--panel)', border: '1px solid var(--panelBorder)', borderRadius: 12, padding: 16 }}>
-              <h3 style={{ display: 'flex', alignItems: 'center', gap: 8 }}><FiList /> Process</h3>
-              <ol style={{ margin: 0, paddingLeft: 18, color: 'var(--muted)' }}>
-                {project.process.map((step, i) => <li key={i}>{step}</li>)}
-              </ol>
+            <div className="project-detail-card">
+              <h3><FiList /> Process</h3>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+                {project.process.map((step, i) => (
+                  <div key={i} style={{ display: 'flex', gap: 12, alignItems: 'center' }}>
+                    <span style={{ 
+                      display: 'grid', 
+                      placeItems: 'center', 
+                      width: 24, 
+                      height: 24, 
+                      borderRadius: '50%', 
+                      background: 'var(--panelBorder)', 
+                      fontSize: 12, 
+                      fontWeight: 700 
+                    }}>{i + 1}</span>
+                    <span style={{ color: 'var(--muted)' }}>{step}</span>
+                  </div>
+                ))}
+              </div>
             </div>
           )}
           <div style={{ display: 'grid', gap: 16, gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))' }}>
             {project.metrics && (
-              <div style={{ background: 'var(--panel)', border: '1px solid var(--panelBorder)', borderRadius: 12, padding: 16 }}>
-                <h3 style={{ display: 'flex', alignItems: 'center', gap: 8 }}><FiBarChart2 /> Metrics</h3>
-                <ul style={{ margin: 0, paddingLeft: 18, color: 'var(--muted)' }}>
-                  {project.metrics.map((m) => <li key={m.label}><strong>{m.label}:</strong> {m.value}</li>)}
-                </ul>
+              <div className="project-detail-card">
+                <h3><FiBarChart2 /> Metrics</h3>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+                  {project.metrics.map((m) => (
+                    <div key={m.label} style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid var(--panelBorder)', paddingBottom: 4 }}>
+                      <span style={{ color: 'var(--muted)', fontSize: 14 }}>{m.label}</span>
+                      <span style={{ fontWeight: 600 }}>{m.value}</span>
+                    </div>
+                  ))}
+                </div>
               </div>
             )}
-            <div style={{ background: 'var(--panel)', border: '1px solid var(--panelBorder)', borderRadius: 12, padding: 16 }}>
-              <h3 style={{ display: 'flex', alignItems: 'center', gap: 8 }}><FiUser /> Roles</h3>
-              <p style={{ color: 'var(--muted)' }}>{project.roles?.join(', ')}</p>
+            <div className="project-detail-card">
+              <h3><FiUser /> Roles</h3>
+              <p>{project.roles?.join(', ')}</p>
             </div>
-            <div style={{ background: 'var(--panel)', border: '1px solid var(--panelBorder)', borderRadius: 12, padding: 16 }}>
-              <h3 style={{ display: 'flex', alignItems: 'center', gap: 8 }}><FiCode /> Tech</h3>
-              <p style={{ color: 'var(--muted)' }}>{project.tech?.join(', ')}</p>
+            <div className="project-detail-card">
+              <h3><FiCode /> Tech</h3>
+              <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>
+                {project.tech?.map(t => <span key={t} className="tech-tag">{t}</span>)}
+              </div>
             </div>
           </div>
         </div>

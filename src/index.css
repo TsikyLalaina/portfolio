@@ -1,27 +1,131 @@
 :root {
   --bg: #0a0b10;
   --fg: #ffffff;
-  --muted: rgba(255,255,255,0.65);
-  --panel: rgba(255,255,255,0.08);
-  --panelBorder: rgba(255,255,255,0.12);
+  --muted: rgba(255, 255, 255, 0.65);
+  --panel: rgba(255, 255, 255, 0.08);
+  --panelBorder: rgba(255, 255, 255, 0.12);
   --brand: #7dd3fc; /* sky-300 */
   --brandAccent: #38bdf8; /* sky-400 */
+  --orange: #f97316; /* orange-500 */
+  --orangeGlow: rgba(249, 115, 22, 0.4);
+
+  /* Spacing Scale */
+  --space-sm: 32px;
+  --space-md: 48px;
+  --space-lg: 64px;
+  --space-xl: 96px;
 }
 
-* { box-sizing: border-box; }
-html { height: 100%; }
-body, #root {
+* {
+  box-sizing: border-box;
+}
+html {
+  height: 100%;
+  scroll-behavior: smooth;
+}
+body,
+#root {
   margin: 0;
   background: var(--bg);
   color: var(--fg);
-  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+  font-family:
+    ui-sans-serif,
+    system-ui,
+    -apple-system,
+    Segoe UI,
+    Roboto,
+    Helvetica,
+    Arial,
+    "Apple Color Emoji",
+    "Segoe UI Emoji";
+    line-height: 1.5;
 }
+
+/* Accessibility & Utilities */
+:focus-visible {
+  outline: 2px solid var(--brandAccent);
+  outline-offset: 4px;
+}
+
+.skip-link {
+  position: absolute;
+  top: -100px;
+  left: 16px;
+  background: var(--brand);
+  color: #000;
+  padding: 12px 20px;
+  border-radius: 0 0 8px 8px;
+  font-weight: 700;
+  z-index: 10000;
+  transition: top 0.3s ease;
+  text-decoration: none;
+}
+
+.skip-link:focus {
+  top: 0;
+}
+
+/* ... existing styles ... */
+
+/* Tech Tag Updates */
+.tech-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: color-mix(in oklab, var(--orange) 12%, transparent);
+  color: var(--fg);
+  border: 1px solid color-mix(in oklab, var(--orange) 30%, transparent);
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 500;
+  transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+  cursor: default;
+}
+
+.tech-tag:hover {
+  transform: scale(1.1); /* visual lift with pop */
+  transition-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  background: color-mix(in oklab, var(--orange) 20%, transparent);
+  border-color: color-mix(in oklab, var(--orange) 45%, transparent);
+}
+
 body {
   margin: 0;
 }
 
-a { color: inherit; }
-p { color: var(--muted); }
+/* Subtle Animated Gradient Background */
+body::before {
+  content: "";
+  position: fixed;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle at center, color-mix(in oklab, var(--brand) 5%, transparent) 0%, transparent 60%),
+              radial-gradient(circle at 80% 20%, color-mix(in oklab, var(--orange) 3%, transparent) 0%, transparent 50%);
+  z-index: -1;
+  animation: moveGradient 30s ease infinite alternate;
+  pointer-events: none;
+}
+
+@keyframes moveGradient {
+  0% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(-5%, 2%) scale(1.1); }
+  100% { transform: translate(5%, 5%) scale(1); }
+}
+
+h1 { letter-spacing: -0.02em; }
+h2 { letter-spacing: -0.01em; }
+h3 { letter-spacing: 0em; }
+
+a {
+  color: inherit;
+}
+p {
+  color: var(--muted);
+  line-height: 1.75;
+}
 
 .btn-primary {
   background: var(--fg);
@@ -43,17 +147,25 @@ p { color: var(--muted); }
   align-items: center;
   gap: 8px;
   text-decoration: none;
-  transition: background 200ms ease, border-color 200ms ease, transform 150ms ease;
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease,
+    transform 0.2s ease;
 }
 
 .btn-ghost:hover {
   background: color-mix(in oklab, var(--brand) 28%, transparent);
   border-color: color-mix(in oklab, var(--brand) 55%, transparent);
+  transform: scale(1.05);
 }
 
 /* External link button refined styling */
 .btn-external {
-  background: linear-gradient(0deg, color-mix(in oklab, var(--brand) 14%, transparent), color-mix(in oklab, var(--brand) 14%, transparent));
+  background: linear-gradient(
+    0deg,
+    color-mix(in oklab, var(--brand) 14%, transparent),
+    color-mix(in oklab, var(--brand) 14%, transparent)
+  );
   color: var(--fg);
   border: 1px solid color-mix(in oklab, var(--brand) 38%, transparent);
   border-radius: 12px;
@@ -63,14 +175,23 @@ p { color: var(--muted); }
   align-items: center;
   gap: 8px;
   text-decoration: none;
-  transition: background 200ms ease, border-color 200ms ease, transform 150ms ease, box-shadow 200ms ease;
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease,
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
   box-shadow: 0 2px 10px color-mix(in oklab, var(--brand) 12%, transparent);
 }
 
 .btn-external:hover {
-  background: linear-gradient(0deg, color-mix(in oklab, var(--brand) 22%, transparent), color-mix(in oklab, var(--brand) 22%, transparent));
+  background: linear-gradient(
+    0deg,
+    color-mix(in oklab, var(--brand) 22%, transparent),
+    color-mix(in oklab, var(--brand) 22%, transparent)
+  );
   border-color: color-mix(in oklab, var(--brand) 55%, transparent);
   box-shadow: 0 4px 16px color-mix(in oklab, var(--brand) 18%, transparent);
+  transform: scale(1.05);
 }
 
 .btn-external:active {
@@ -99,6 +220,758 @@ p { color: var(--muted); }
   padding: 6px 10px;
   border-radius: 999px;
   font-size: 12px;
+  transition: background 0.3s ease, border-color 0.3s ease, transform 0.3s ease;
+}
+
+.chip:hover {
+  background: color-mix(in oklab, var(--brand) 28%, transparent);
+  border-color: color-mix(in oklab, var(--brand) 55%, transparent);
+  transform: translateY(-1px);
+}
+
+/* Profile Photo with Glowing Border */
+.profile-photo {
+  width: 100%;
+  max-width: 160px;
+  height: 160px;
+  object-fit: cover;
+  border-radius: 16px;
+  border: 2px solid var(--orange);
+  box-shadow: 0 0 20px var(--orangeGlow), 0 0 40px rgba(249, 115, 22, 0.2);
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.profile-photo:hover {
+  box-shadow: 0 0 30px var(--orangeGlow), 0 0 60px rgba(249, 115, 22, 0.3);
+  transform: scale(1.02);
+}
+
+/* About Section Cards */
+.about-card {
+  background: var(--panel);
+  border: 1px solid var(--panelBorder);
+  border-radius: 12px;
+  padding: 16px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.about-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(249, 115, 22, 0.15), 0 4px 12px rgba(0, 0, 0, 0.3);
+  border-color: color-mix(in oklab, var(--orange) 50%, var(--panelBorder));
+}
+
+.about-card-title {
+  font-weight: 700;
+  margin-bottom: 8px;
+  color: var(--orange);
+}
+
+/* Touch device support - use active state as fallback */
+@media (hover: none) {
+  .about-card:active {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(249, 115, 22, 0.15), 0 4px 12px rgba(0, 0, 0, 0.3);
+    border-color: color-mix(in oklab, var(--orange) 50%, var(--panelBorder));
+  }
+  
+  .profile-photo:active {
+    box-shadow: 0 0 30px var(--orangeGlow), 0 0 60px rgba(249, 115, 22, 0.3);
+    transform: scale(1.02);
+  }
+}
+
+/* Project Cards */
+.project-card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background: var(--panel);
+  border: 1px solid var(--panelBorder);
+  border-radius: 14px;
+  padding: 20px;
+  color: var(--fg);
+  text-decoration: none;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.project-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.4), 0 8px 20px rgba(249, 115, 22, 0.1);
+  border-color: color-mix(in oklab, var(--orange) 40%, var(--panelBorder));
+}
+
+/* Project Thumbnail with Gradient Overlay */
+.project-thumbnail-container {
+  position: relative;
+  width: 100%;
+  height: 160px;
+  border-radius: 10px;
+  overflow: hidden;
+  margin-bottom: 14px;
+}
+
+.project-thumbnail {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.project-card:hover .project-thumbnail {
+  transform: scale(1.05);
+}
+
+.project-thumbnail-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    transparent 0%,
+    transparent 50%,
+    rgba(10, 11, 16, 0.7) 100%
+  );
+  pointer-events: none;
+}
+
+.project-thumbnail-placeholder {
+  width: 100%;
+  height: 100%;
+  border-radius: 10px;
+}
+
+/* Project Card Content */
+.project-title {
+  font-weight: 700;
+  font-size: 16px;
+  margin-bottom: 6px;
+  color: var(--fg);
+}
+
+.project-tags {
+  opacity: 0.8;
+  font-size: 14px;
+  color: var(--muted);
+  margin-bottom: 8px;
+}
+
+/* Technology Tags */
+.tech-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: auto;
+  padding-top: 10px;
+}
+
+
+
+/* Touch device support for project cards */
+@media (hover: none) {
+  .project-card:active {
+    transform: translateY(-8px);
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.4), 0 8px 20px rgba(249, 115, 22, 0.1);
+    border-color: color-mix(in oklab, var(--orange) 40%, var(--panelBorder));
+  }
+  
+  .project-card:active .project-thumbnail {
+    transform: scale(1.05);
+  }
+}
+
+/* Workflow Section */
+.workflow-header {
+  text-align: center;
+  margin-bottom: var(--space-md);
+}
+
+.workflow-title {
+  margin-top: 16px;
+  font-size: clamp(20px, 4vw, 28px);
+  font-weight: 700;
+  background: linear-gradient(90deg, var(--orange), var(--brand));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  letter-spacing: -0.02em;
+}
+
+.workflow-subtitle {
+  color: var(--muted);
+  font-size: clamp(14px, 3vw, 16px);
+  margin-top: 8px;
+}
+
+/* Workflow Steps Container with Connecting Line */
+.workflow-steps {
+  display: grid;
+  gap: var(--space-lg);
+  position: relative;
+  padding-left: 40px;
+}
+
+.workflow-steps::before {
+  content: '';
+  position: absolute;
+  left: 15px;
+  top: 30px;
+  bottom: 30px;
+  width: 2px;
+  background: linear-gradient(
+    180deg,
+    var(--orange) 0%,
+    color-mix(in oklab, var(--orange) 50%, var(--brand)) 50%,
+    var(--brand) 100%
+  );
+  border-radius: 2px;
+}
+
+/* Individual Workflow Step */
+.workflow-step {
+  position: relative;
+  background: var(--panel);
+  border: 1px solid var(--panelBorder);
+  border-radius: 14px;
+  padding: 24px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.workflow-step:hover {
+  transform: translateX(8px);
+  box-shadow: 0 8px 32px rgba(249, 115, 22, 0.12), 0 4px 16px rgba(0, 0, 0, 0.25);
+  border-color: color-mix(in oklab, var(--orange) 35%, var(--panelBorder));
+}
+
+/* Connecting Dot */
+.workflow-step::before {
+  content: '';
+  position: absolute;
+  left: -33px;
+  top: 28px;
+  width: 12px;
+  height: 12px;
+  background: var(--orange);
+  border-radius: 50%;
+  box-shadow: 0 0 12px var(--orangeGlow), 0 0 24px rgba(249, 115, 22, 0.3);
+}
+
+/* Step Number */
+.workflow-step-number {
+  font-size: clamp(28px, 5vw, 36px);
+  font-weight: 800;
+  color: var(--orange);
+  line-height: 1;
+  margin-right: 12px;
+  text-shadow: 0 0 20px var(--orangeGlow);
+}
+
+/* Step Header */
+.workflow-step-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.workflow-step-icon {
+  color: var(--orange);
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+}
+
+.workflow-step-title {
+  font-size: clamp(18px, 3.5vw, 22px);
+  font-weight: 700;
+  color: var(--fg);
+  margin: 0;
+}
+
+/* Step Description */
+.workflow-step-desc {
+  color: var(--muted);
+  font-size: clamp(14px, 2.5vw, 16px);
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* Workflow Info Cards */
+.workflow-info-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 16px;
+  margin-top: var(--space-md);
+}
+
+.workflow-info-card {
+  background: var(--panel);
+  border: 1px solid var(--panelBorder);
+  border-radius: 12px;
+  padding: 20px;
+  transition: transform 0.3s ease, border-color 0.3s ease;
+}
+
+.workflow-info-card:hover {
+  transform: translateY(-4px);
+  border-color: color-mix(in oklab, var(--brand) 40%, var(--panelBorder));
+}
+
+.workflow-info-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--brand);
+  margin-bottom: 12px;
+}
+
+.workflow-info-list {
+  margin: 0;
+  padding-left: 18px;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+/* Touch device support for workflow */
+@media (hover: none) {
+  .workflow-step:active {
+    transform: translateX(8px);
+    box-shadow: 0 8px 32px rgba(249, 115, 22, 0.12), 0 4px 16px rgba(0, 0, 0, 0.25);
+    border-color: color-mix(in oklab, var(--orange) 35%, var(--panelBorder));
+  }
+}
+
+/* Mobile adjustments for workflow */
+@media (max-width: 640px) {
+  .workflow-steps {
+    padding-left: 32px;
+    gap: 40px;
+  }
+  
+  .workflow-steps::before {
+    left: 11px;
+  }
+  
+  .workflow-step::before {
+    left: -27px;
+    width: 10px;
+    height: 10px;
+  }
+}
+
+/* Contact Form Styles */
+.contact-form {
+  display: grid;
+  gap: 14px;
+  max-width: 100%;
+  width: 100%;
+  margin-top: 20px;
+}
+
+.form-input {
+  background: var(--panel);
+  border: 1px solid var(--panelBorder);
+  border-radius: 12px;
+  padding: 14px 16px;
+  color: var(--fg);
+  font-size: clamp(14px, 4vw, 16px);
+  width: 100%;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+}
+
+.form-input::placeholder {
+  color: rgba(255, 255, 255, 0.35);
+}
+
+.form-input:hover {
+  border-color: color-mix(in oklab, var(--orange) 30%, var(--panelBorder));
+  background: color-mix(in oklab, var(--panel) 90%, var(--orange) 10%);
+}
+
+.form-input:focus {
+  outline: none;
+  border-color: var(--orange);
+  box-shadow: 0 0 0 3px var(--orangeGlow), 0 0 20px rgba(249, 115, 22, 0.15);
+  background: color-mix(in oklab, var(--panel) 85%, var(--orange) 15%);
+}
+
+.form-textarea {
+  resize: vertical;
+  min-height: 140px;
+}
+
+/* Submit Button */
+.submit-btn {
+  background: linear-gradient(135deg, var(--orange), color-mix(in oklab, var(--orange) 80%, var(--brand)));
+  color: #fff;
+  border-radius: 12px;
+  padding: 14px 20px;
+  font-weight: 700;
+  font-size: clamp(14px, 4vw, 16px);
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
+}
+
+.submit-btn:hover:not(:disabled) {
+  transform: scale(1.05);
+  box-shadow: 0 8px 24px rgba(249, 115, 22, 0.35), 0 4px 12px rgba(0, 0, 0, 0.2);
+  filter: brightness(1.1);
+}
+
+.submit-btn:active:not(:disabled) {
+  transform: translateY(1px);
+  box-shadow: 0 4px 12px rgba(249, 115, 22, 0.25);
+}
+
+.submit-btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+/* Loading State */
+.submit-btn-loading {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.submit-btn-spinner {
+  width: 18px;
+  height: 18px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Form Status Messages */
+.form-status {
+  font-size: clamp(12px, 3vw, 14px);
+  padding: 10px 14px;
+  border-radius: 8px;
+  margin-top: 4px;
+}
+
+.form-status-success {
+  color: #4ade80;
+  background: rgba(74, 222, 128, 0.1);
+  border: 1px solid rgba(74, 222, 128, 0.3);
+}
+
+.form-status-error {
+  color: #ff6b6b;
+  background: rgba(255, 107, 107, 0.1);
+  border: 1px solid rgba(255, 107, 107, 0.3);
+}
+
+/* Contact Social Links */
+.contact-links {
+  display: flex;
+  gap: 12px;
+  margin-top: 20px;
+  flex-wrap: wrap;
+}
+
+.contact-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: color-mix(in oklab, var(--orange) 12%, transparent);
+  color: var(--fg);
+  border: 1px solid color-mix(in oklab, var(--orange) 30%, transparent);
+  padding: 10px 16px;
+  border-radius: 999px;
+  font-size: 14px;
+  font-weight: 500;
+  text-decoration: none;
+  transition: background 0.3s ease, border-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.contact-link:hover {
+  background: color-mix(in oklab, var(--orange) 25%, transparent);
+  border-color: color-mix(in oklab, var(--orange) 50%, transparent);
+  transform: translateY(-3px);
+  box-shadow: 0 6px 16px rgba(249, 115, 22, 0.2);
+}
+
+.contact-link:active {
+  transform: translateY(0);
+}
+
+/* Touch device support for contact form */
+@media (hover: none) {
+  .contact-link:active {
+    background: color-mix(in oklab, var(--orange) 25%, transparent);
+    border-color: color-mix(in oklab, var(--orange) 50%, transparent);
+    transform: translateY(-3px);
+    box-shadow: 0 6px 16px rgba(249, 115, 22, 0.2);
+  }
+}
+
+/* Project Detail Page */
+.project-preview-container {
+  border-radius: 14px;
+  margin: var(--space-sm) 0;
+  border: 1px solid var(--panelBorder);
+  overflow: hidden;
+  position: relative;
+}
+
+.project-preview-banner {
+  background: linear-gradient(135deg, rgba(34, 197, 94, 0.15), rgba(34, 197, 94, 0.08));
+  border-bottom: 1px solid rgba(34, 197, 94, 0.3);
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.project-preview-banner-icon {
+  color: #4ade80;
+  font-size: 16px;
+}
+
+.project-preview-banner-text {
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.project-preview-banner-note {
+  color: rgba(255, 255, 255, 0.55);
+  font-size: 12px;
+  font-style: italic;
+}
+
+.project-iframe-container {
+  position: relative;
+  width: 100%;
+  height: 450px;
+}
+
+.project-iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+/* Live Preview Indicator */
+.project-preview-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.project-live-indicator {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--fg);
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.project-live-dot {
+  width: 10px;
+  height: 10px;
+  background: #4ade80;
+  border-radius: 50%;
+  animation: pulse-dot 2s ease-in-out infinite;
+  box-shadow: 0 0 8px rgba(74, 222, 128, 0.5);
+}
+
+@keyframes pulse-dot {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.6;
+    transform: scale(0.85);
+  }
+}
+
+/* Enhanced Open Live Site Button */
+.btn-open-live {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: linear-gradient(135deg, var(--orange), color-mix(in oklab, var(--orange) 75%, var(--brand)));
+  color: #fff;
+  border: none;
+  border-radius: 12px;
+  padding: 14px 24px;
+  font-size: 16px;
+  font-weight: 700;
+  text-decoration: none;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
+  box-shadow: 0 4px 16px rgba(249, 115, 22, 0.3);
+}
+
+.btn-open-live:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 28px rgba(249, 115, 22, 0.4), 0 4px 12px rgba(0, 0, 0, 0.2);
+  filter: brightness(1.1);
+}
+
+.btn-open-live:active {
+  transform: translateY(1px) scale(0.98);
+  box-shadow: 0 3px 10px rgba(249, 115, 22, 0.25);
+}
+
+.btn-open-live-icon {
+  width: 20px;
+  height: 20px;
+  transition: transform 0.3s ease;
+}
+
+.btn-open-live:hover .btn-open-live-icon {
+  transform: translate(2px, -2px);
+}
+
+/* Project Detail Cards */
+.project-detail-card {
+  background: var(--panel);
+  border: 1px solid var(--panelBorder);
+  border-radius: 14px;
+  padding: 20px;
+  transition: transform 0.3s ease, border-color 0.3s ease;
+}
+
+.project-detail-card:hover {
+  transform: translateY(-3px);
+  border-color: color-mix(in oklab, var(--orange) 30%, var(--panelBorder));
+}
+
+.project-detail-card h3 {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+  font-size: 18px;
+  color: var(--orange);
+}
+
+.project-detail-card p,
+.project-detail-card ul,
+.project-detail-card ol {
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+/* Touch device support for project page */
+@media (hover: none) {
+  .btn-open-live:active {
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 8px 28px rgba(249, 115, 22, 0.4), 0 4px 12px rgba(0, 0, 0, 0.2);
+    filter: brightness(1.1);
+  }
+}
+
+/* Navigation Link Styles */
+.nav-link {
+  color: var(--fg);
+  opacity: 0.8;
+  font-size: 14px;
+  text-decoration: none;
+  position: relative;
+  padding-bottom: 4px;
+  transition:
+    opacity 0.3s ease,
+    color 0.3s ease;
+}
+
+.nav-link::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--orange), var(--brand));
+  border-radius: 2px;
+  transition: width 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.nav-link:hover {
+  opacity: 1;
+  color: var(--brand);
+}
+
+.nav-link:hover::after {
+  width: 100%;
+}
+
+/* Theme Toggle Button */
+.theme-toggle {
+  background: var(--panel);
+  border-radius: 8px;
+  border: 1px solid var(--panelBorder);
+  color: var(--fg);
+  padding: 6px 10px;
+  cursor: pointer;
+  transition:
+    transform 0.3s ease,
+    background 0.3s ease,
+    border-color 0.3s ease;
+}
+
+.theme-toggle:hover {
+  transform: scale(1.1);
+  background: color-mix(in oklab, var(--brand) 15%, var(--panel));
+  border-color: color-mix(in oklab, var(--brand) 40%, transparent);
+}
+
+/* Social Icon Links */
+.social-icon {
+  color: var(--fg);
+  opacity: 0.9;
+  display: grid;
+  place-items: center;
+  transition:
+    opacity 0.3s ease,
+    color 0.3s ease,
+    transform 0.3s ease;
+}
+
+.social-icon:hover {
+  opacity: 1;
+  color: var(--brand);
+  transform: scale(1.15);
+}
+
+/* Language Selector */
+.lang-select {
+  background: var(--panel);
+  border-radius: 8px;
+  border: 1px solid var(--panelBorder);
+  color: var(--fg);
+  padding: 6px 10px;
+  cursor: pointer;
+  transition:
+    border-color 0.3s ease,
+    background 0.3s ease;
+}
+
+.lang-select:hover {
+  background: color-mix(in oklab, var(--brand) 10%, var(--panel));
+  border-color: color-mix(in oklab, var(--brand) 35%, transparent);
 }
 
 /* Responsive Design */
@@ -116,7 +989,7 @@ p { color: var(--muted); }
   .desktop-nav {
     display: flex !important;
   }
-  
+
   .mobile-controls {
     display: none !important;
   }

@@ -41,21 +41,17 @@ export function Navbar() {
 
       {/* Desktop Navigation */}
       <div className="desktop-nav" style={{ display: 'none', gap: 16, alignItems: 'center' }}>
-        <a href="#projects" style={{ color: 'var(--fg)', opacity: 0.8, fontSize: 14 }}>{t('nav_projects')}</a>
-        <a href="#about" style={{ color: 'var(--fg)', opacity: 0.8, fontSize: 14 }}>{t('nav_about')}</a>
-        <a href="#contact" style={{ color: 'var(--fg)', opacity: 0.8, fontSize: 14 }}>{t('nav_contact')}</a>
-        <a href="https://github.com/TsikyLalaina" target="_blank" rel="noreferrer" aria-label="GitHub" style={{ color: 'var(--fg)', opacity: 0.9, display: 'grid', placeItems: 'center' }}>
+        <a href="#projects" className="nav-link">{t('nav_projects')}</a>
+        <a href="#about" className="nav-link">{t('nav_about')}</a>
+        <a href="#contact" className="nav-link">{t('nav_contact')}</a>
+        <a href="https://github.com/TsikyLalaina" target="_blank" rel="noreferrer" aria-label="GitHub" className="social-icon">
           <FaGithub />
         </a>
-        <a href="https://www.linkedin.com/in/tsiky-loharanontsoa-7111b2272/" target="_blank" rel="noreferrer" aria-label="LinkedIn" style={{ color: 'var(--fg)', opacity: 0.9, display: 'grid', placeItems: 'center' }}>
+        <a href="https://www.linkedin.com/in/tsiky-loharanontsoa-7111b2272/" target="_blank" rel="noreferrer" aria-label="LinkedIn" className="social-icon">
           <FaLinkedin />
         </a>
-        <button onClick={toggleTheme} aria-label="Toggle theme" style={{
-          background: 'var(--panel)', borderRadius: 8, border: '1px solid var(--panelBorder)', color: 'var(--fg)', padding: '6px 10px', cursor: 'pointer'
-        }}>{theme === 'dark' ? '🌙' : '☀️'}</button>
-        <select value={locale} onChange={(e) => setLocale(e.target.value as any)} aria-label="Language" style={{
-          background: 'var(--panel)', borderRadius: 8, border: '1px solid var(--panelBorder)', color: 'var(--fg)', padding: '6px 10px', cursor: 'pointer'
-        }}>
+        <button onClick={toggleTheme} aria-label="Toggle theme" className="theme-toggle">{theme === 'dark' ? '🌙' : '☀️'}</button>
+        <select value={locale} onChange={(e) => setLocale(e.target.value as any)} aria-label="Language" className="lang-select">
           <option value="en">EN</option>
           <option value="fr">FR</option>
         </select>
@@ -63,12 +59,8 @@ export function Navbar() {
 
       {/* Mobile Controls */}
       <div style={{ display: 'flex', gap: 8, alignItems: 'center' }} className="mobile-controls">
-        <button onClick={toggleTheme} aria-label="Toggle theme" style={{
-          background: 'var(--panel)', borderRadius: 8, border: '1px solid var(--panelBorder)', color: 'var(--fg)', padding: '6px 10px', cursor: 'pointer', fontSize: 14
-        }}>{theme === 'dark' ? '🌙' : '☀️'}</button>
-        <select value={locale} onChange={(e) => setLocale(e.target.value as any)} aria-label="Language" style={{
-          background: 'var(--panel)', borderRadius: 8, border: '1px solid var(--panelBorder)', color: 'var(--fg)', padding: '6px 10px', cursor: 'pointer', fontSize: 12
-        }}>
+        <button onClick={toggleTheme} aria-label="Toggle theme" className="theme-toggle" style={{ fontSize: 14 }}>{theme === 'dark' ? '🌙' : '☀️'}</button>
+        <select value={locale} onChange={(e) => setLocale(e.target.value as any)} aria-label="Language" className="lang-select" style={{ fontSize: 12 }}>
           <option value="en">EN</option>
           <option value="fr">FR</option>
         </select>
@@ -97,14 +89,14 @@ export function Navbar() {
             zIndex: 40,
           }}
         >
-          <a href="#projects" onClick={() => setMobileMenuOpen(false)} style={{ color: 'var(--fg)', opacity: 0.8, textDecoration: 'none' }}>{t('nav_projects')}</a>
-          <a href="#about" onClick={() => setMobileMenuOpen(false)} style={{ color: 'var(--fg)', opacity: 0.8, textDecoration: 'none' }}>{t('nav_about')}</a>
-          <a href="#contact" onClick={() => setMobileMenuOpen(false)} style={{ color: 'var(--fg)', opacity: 0.8, textDecoration: 'none' }}>{t('nav_contact')}</a>
+          <a href="#projects" onClick={() => setMobileMenuOpen(false)} className="nav-link">{t('nav_projects')}</a>
+          <a href="#about" onClick={() => setMobileMenuOpen(false)} className="nav-link">{t('nav_about')}</a>
+          <a href="#contact" onClick={() => setMobileMenuOpen(false)} className="nav-link">{t('nav_contact')}</a>
           <div style={{ display: 'flex', gap: 12 }}>
-            <a href="https://github.com/TsikyLalaina" target="_blank" rel="noreferrer" aria-label="GitHub" style={{ color: 'var(--fg)', opacity: 0.9 }}>
+            <a href="https://github.com/TsikyLalaina" target="_blank" rel="noreferrer" aria-label="GitHub" className="social-icon">
               <FaGithub />
             </a>
-            <a href="https://www.linkedin.com/in/tsiky-loharanontsoa-7111b2272/" target="_blank" rel="noreferrer" aria-label="LinkedIn" style={{ color: 'var(--fg)', opacity: 0.9 }}>
+            <a href="https://www.linkedin.com/in/tsiky-loharanontsoa-7111b2272/" target="_blank" rel="noreferrer" aria-label="LinkedIn" className="social-icon">
               <FaLinkedin />
             </a>
           </div>

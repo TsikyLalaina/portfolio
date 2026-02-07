@@ -1,61 +1,82 @@
-import { motion, useInView } from 'framer-motion'
-import { useRef, useState } from 'react'
+import { motion, useInView, type Variants } from 'framer-motion'
+import React, { useRef, useState } from 'react'
 import { useI18n } from '../i18n'
 import { useUIStore } from '../store/ui'
 import { Link } from 'react-router-dom'
-// removed icons from project cards per user request
 import { projects } from '../data/projects'
+import { FiCheck } from 'react-icons/fi'
 
 function SectionWrapper({ id, children }: { id: string, children: React.ReactNode }) {
-  const ref = useRef<HTMLDivElement>(null)
-  const inView = useInView(ref, { once: true, margin: '-20% 0px -20% 0px' })
   return (
-    <section id={id} ref={ref} style={{ padding: 'clamp(48px, 10vw, 96px) clamp(16px, 5vw, 24px)', maxWidth: 1200, margin: '0 auto', width: '100%' }}>
-      <motion.div
-        initial={{ y: 24, opacity: 0 }}
-        animate={inView ? { y: 0, opacity: 1 } : {}}
-        transition={{ duration: 0.7, ease: 'easeOut' }}
-      >
-        {children}
-      </motion.div>
+    <section id={id} style={{ padding: 'clamp(var(--space-md), 10vw, var(--space-xl)) clamp(16px, 5vw, 24px)', maxWidth: 1200, margin: '0 auto', width: '100%' }}>
+      {children}
     </section>
   )
+}
+
+const fadeInUp: Variants = {
+  hidden: { y: 30, opacity: 0 },
+  visible: { y: 0, opacity: 1, transition: { duration: 0.6, ease: "easeOut" } }
+}
+
+const staggerContainer: Variants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.15,
+      delayChildren: 0.1
+    }
+  }
 }
 
 export function Projects() {
   const t = useI18n()
   return (
     <SectionWrapper id="projects">
-      <h2 style={{ color: 'var(--fg)', marginBottom: 16 }}>{t('projects_title')}</h2>
-      <p style={{ color: 'var(--muted)' }}>{t('projects_desc')}</p>
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(260px, 1fr))', gap: 16, marginTop: 24 }}>
+      <motion.div 
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: "-10%" }}
+        variants={fadeInUp}
+      >
+        <h2 style={{ color: 'var(--fg)', marginBottom: 16 }}>{t('projects_title')}</h2>
+        <p style={{ color: 'var(--muted)' }}>{t('projects_desc')}</p>
+      </motion.div>
+      
+      <motion.div 
+        style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: 20, marginTop: 24 }}
+        variants={staggerContainer}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: "-10%" }}
+      >
         {projects.map((p) => (
-          <motion.div key={p.id} whileHover={{ y: -6, scale: 1.02 }} transition={{ type: 'spring', stiffness: 300, damping: 20 }}>
-            <Link to={`/project/${p.id}`} style={{
-              display: 'flex',
-              flexDirection: 'column',
-              height: '100%',
-              background: 'var(--panel)',
-              border: '1px solid var(--panelBorder)',
-              borderRadius: 12,
-              padding: 16,
-              color: 'var(--fg)',
-              textDecoration: 'none'
-            }}>
-              {p.image ? (
-                <img src={p.image} alt={`${p.title} preview`} style={{ width: '100%', height: 140, objectFit: 'cover', borderRadius: 8, marginBottom: 12 }} />
-              ) : (
-                <div style={{ height: 140, background: p.heroColor, borderRadius: 8, marginBottom: 12 }} />
-              )}
-              <div style={{ fontWeight: 600 }}>{p.title}</div>
-              <div style={{ opacity: 0.75, fontSize: 14 }}>{p.tags.join(' • ')}</div>
+          <motion.div key={p.id} variants={fadeInUp}>
+            <Link to={`/project/${p.id}`} className="project-card">
+              <div className="project-thumbnail-container">
+                {p.image ? (
+                  <>
+                    <img src={p.image} alt={`${p.title} preview`} className="project-thumbnail" />
+                    <div className="project-thumbnail-overlay" />
+                  </>
+                ) : (
+                  <div className="project-thumbnail-placeholder" style={{ background: p.heroColor }} />
+                )}
+              </div>
+              <div className="project-title">{p.title}</div>
+              <div className="project-tags">{p.tags.join(' • ')}</div>
               {p.tech && p.tech.length > 0 && (
-                <div style={{ opacity: 0.65, fontSize: 13, marginTop: 'auto', paddingTop: 4 }}>{p.tech.join(' • ')}</div>
+                <div className="tech-tags">
+                  {p.tech.map((tech, index) => (
+                    <span key={index} className="tech-tag">{tech}</span>
+                  ))}
+                </div>
               )}
             </Link>
           </motion.div>
         ))}
-      </div>
+      </motion.div>
     </SectionWrapper>
   )
 }
@@ -64,52 +85,103 @@ export function About() {
   const t = useI18n()
   return (
     <SectionWrapper id="about">
-      <h2 style={{ color: 'var(--fg)', marginBottom: 16 }}>{t('about_title')}</h2>
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(160px, 1fr))', gap: 16, alignItems: 'start', maxWidth: 1000 }}>
-        <img src={new URL('../assets/profile.jpg', import.meta.url).toString()} alt="Profile photo" style={{ width: '100%', maxWidth: 160, height: 160, objectFit: 'cover', borderRadius: 16, border: '1px solid var(--panelBorder)' }} />
+      <motion.div
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: "-10%" }}
+        variants={fadeInUp}
+      >
+        <h2 style={{ color: 'var(--fg)', marginBottom: 16 }}>{t('about_title')}</h2>
+      </motion.div>
+      
+      <motion.div 
+        style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: 16, alignItems: 'start', maxWidth: 1000 }}
+        variants={fadeInUp}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: "-10%" }}
+      >
+        <motion.img 
+          src={new URL('../assets/profile.jpg', import.meta.url).toString()} 
+          alt="Profile photo" 
+          className="profile-photo"
+          initial={{ opacity: 0, scale: 0.9 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+        />
         <div>
-          <p style={{ color: 'var(--muted)', maxWidth: 800 }}>
-            I'm a passionate web developer with a Bachelor's degree from EMiT Fianarantsoa, specializing in building modern, scalable, and performance-driven web applications. I transform business challenges into elegant digital solutions that deliver measurable results.
-          </p>
-          <p style={{ color: 'var(--muted)', maxWidth: 800 }}>
-            With expertise in cutting-edge technologies and a proven track record of creating sophisticated, user-centric platforms, I help businesses and entrepreneurs establish powerful digital presences that stand out in today's competitive landscape.
-          </p>
-          <p style={{ color: 'var(--muted)', maxWidth: 800 }}>
-            📍 Based in Madagascar — Available worldwide.
-          </p>
-          <div style={{ display: 'flex', gap: 12, marginTop: 8, flexWrap: 'wrap' }}>
+          <motion.div variants={staggerContainer} initial="hidden" whileInView="visible" viewport={{ once: true }}>
+            <motion.p variants={fadeInUp} style={{ color: 'var(--muted)', maxWidth: 800 }}>
+              I'm a passionate web developer with a Bachelor's degree from EMiT Fianarantsoa, specializing in building modern, scalable, and performance-driven web applications. I transform business challenges into elegant digital solutions that deliver measurable results.
+            </motion.p>
+            <motion.p variants={fadeInUp} style={{ color: 'var(--muted)', maxWidth: 800 }}>
+              With expertise in cutting-edge technologies and a proven track record of creating sophisticated, user-centric platforms, I help businesses and entrepreneurs establish powerful digital presences that stand out in today's competitive landscape.
+            </motion.p>
+            <motion.p variants={fadeInUp} style={{ color: 'var(--muted)', maxWidth: 800 }}>
+              📍 Based in Madagascar — Available worldwide.
+            </motion.p>
+          </motion.div>
+          <motion.div 
+            style={{ display: 'flex', gap: 12, marginTop: 8, flexWrap: 'wrap' }}
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.4 }}
+          >
             <a href="mailto:tsikyloharanontsoa@ala-mg.com" className="chip">Email</a>
             <a href="https://github.com/TsikyLalaina" target="_blank" rel="noreferrer" className="chip">GitHub</a>
             <a href="https://www.linkedin.com/in/tsiky-loharanontsoa-7111b2272/" target="_blank" rel="noreferrer" className="chip">LinkedIn</a>
+          </motion.div>
+        </div>
+      </motion.div>
+
+      <motion.div 
+        style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: 16, marginTop: 24 }}
+        variants={staggerContainer}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: "-10%" }}
+      >
+        <motion.div className="about-card" variants={fadeInUp} whileHover={{ y: -6 }}>
+          <div className="about-card-title">Highlights</div>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+            {[
+              '3D Web with React Three Fiber',
+              'Micro-interactions & motion design',
+              'Performance and a11y focus'
+            ].map(item => (
+              <div key={item} style={{ display: 'flex', gap: 10, alignItems: 'flex-start', color: 'var(--muted)', fontSize: 'clamp(14px, 2vw, 16px)', lineHeight: 1.5 }}>
+                <FiCheck style={{ color: 'var(--brand)', marginTop: 4, minWidth: 16 }} />
+                <span>{item}</span>
+              </div>
+            ))}
           </div>
-        </div>
-      </div>
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: 16, marginTop: 24 }}>
-        <div style={{ background: 'var(--panel)', border: '1px solid var(--panelBorder)', borderRadius: 12, padding: 16 }}>
-          <div style={{ fontWeight: 700, marginBottom: 8 }}>Highlights</div>
-          <ul style={{ margin: 0, paddingLeft: 18, color: 'var(--muted)', fontSize: 'clamp(12px, 2vw, 14px)' }}>
-            <li>3D Web with React Three Fiber</li>
-            <li>Micro-interactions & motion design</li>
-            <li>Performance and a11y focus</li>
-          </ul>
-        </div>
-        <div style={{ background: 'var(--panel)', border: '1px solid var(--panelBorder)', borderRadius: 12, padding: 16 }}>
-          <div style={{ fontWeight: 700, marginBottom: 8 }}>Skills</div>
-          <ul style={{ margin: 0, paddingLeft: 18, color: 'var(--muted)', fontSize: 'clamp(12px, 2vw, 14px)' }}>
-            <li>React, TypeScript, Zustand</li>
-            <li>Framer Motion, GSAP</li>
-            <li>Three.js, R3F, postprocessing</li>
-          </ul>
-        </div>
-        <div style={{ background: 'var(--panel)', border: '1px solid var(--panelBorder)', borderRadius: 12, padding: 16 }}>
-          <div style={{ fontWeight: 700, marginBottom: 8 }}>What I Offer</div>
-          <ul style={{ margin: 0, paddingLeft: 18, color: 'var(--muted)', fontSize: 'clamp(12px, 2vw, 14px)' }}>
-            <li>Strategic development aligned to business goals</li>
-            <li>Performance optimization and responsive design</li>
-            <li>Clear communication and post-launch support</li>
-          </ul>
-        </div>
-      </div>
+        </motion.div>
+        <motion.div className="about-card" variants={fadeInUp} whileHover={{ y: -6 }}>
+          <div className="about-card-title">Skills</div>
+          <div className="tech-tags" style={{ marginTop: 0 }}>
+            {['React', 'TypeScript', 'Zustand', 'Framer Motion', 'GSAP', 'Three.js', 'R3F', 'Postprocessing'].map(skill => (
+              <span key={skill} className="tech-tag" style={{ fontSize: 13 }}>{skill}</span>
+            ))}
+          </div>
+        </motion.div>
+        <motion.div className="about-card" variants={fadeInUp} whileHover={{ y: -6 }}>
+          <div className="about-card-title">What I Offer</div>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+            {[
+              'Strategic development aligned to business goals',
+              'Performance optimization and responsive design',
+              'Clear communication and post-launch support'
+            ].map(item => (
+              <div key={item} style={{ display: 'flex', gap: 10, alignItems: 'flex-start', color: 'var(--muted)', fontSize: 'clamp(14px, 2vw, 16px)', lineHeight: 1.5 }}>
+                <FiCheck style={{ color: 'var(--brand)', marginTop: 4, minWidth: 16 }} />
+                <span>{item}</span>
+              </div>
+            ))}
+          </div>
+        </motion.div>
+      </motion.div>
     </SectionWrapper>
   )
 }
@@ -135,29 +207,90 @@ export function Contact() {
   }
   return (
     <SectionWrapper id="contact">
-      <h2 style={{ color: 'var(--fg)', marginBottom: 16 }}>{t('contact_title')}</h2>
-      <p style={{ color: 'var(--muted)' }}>{t('contact_desc')}</p>
-      <form onSubmit={onSubmit} style={{ display: 'grid', gap: 12, maxWidth: '100%', width: '100%', marginTop: 16 }}>
-        <input name="name" placeholder="Name" value={values.name} onChange={onChange} style={{
-          background: 'var(--panel)', border: '1px solid var(--panelBorder)', borderRadius: 10, padding: '12px 14px', color: 'var(--fg)', fontSize: 'clamp(14px, 4vw, 16px)', width: '100%'
-        }} />
-        <input name="email" placeholder="Email" value={values.email} onChange={onChange} type="email" style={{
-          background: 'var(--panel)', border: '1px solid var(--panelBorder)', borderRadius: 10, padding: '12px 14px', color: 'var(--fg)', fontSize: 'clamp(14px, 4vw, 16px)', width: '100%'
-        }} />
-        <textarea name="message" placeholder="Message" value={values.message} onChange={onChange} rows={5} style={{
-          background: 'var(--panel)', border: '1px solid var(--panelBorder)', borderRadius: 10, padding: '12px 14px', color: 'var(--fg)', resize: 'vertical', fontSize: 'clamp(14px, 4vw, 16px)', width: '100%', minHeight: '120px'
-        }} />
-        <button type="submit" disabled={status==='sending'} style={{
-          background: 'var(--fg)', color: 'var(--bg)', borderRadius: 10, padding: '12px 16px', fontWeight: 700, border: 'none', cursor: 'pointer', fontSize: 'clamp(14px, 4vw, 16px)', width: '100%'
-        }}>{t('contact_send')}</button>
-        {status==='sent' && <div role="status" style={{ color: 'var(--muted)', fontSize: 'clamp(12px, 3vw, 14px)' }}>Message prepared in your mail client.</div>}
-        {status==='error' && <div role="alert" style={{ color: '#ff6b6b', fontSize: 'clamp(12px, 3vw, 14px)' }}>Please provide a valid email and message.</div>}
-      </form>
-      <div style={{ display: 'flex', gap: 12, marginTop: 16, flexWrap: 'wrap' }}>
-        <a href={`mailto:${email}`} className="chip">Email</a>
-        <a href="https://github.com/TsikyLalaina" target="_blank" rel="noreferrer" className="chip">GitHub</a>
-        <a href="https://www.linkedin.com/in/tsiky-loharanontsoa-7111b2272/" target="_blank" rel="noreferrer" className="chip">LinkedIn</a>
-      </div>
+      <motion.div
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: "-10%" }}
+        variants={fadeInUp}
+      >
+        <h2 style={{ color: 'var(--fg)', marginBottom: 16 }}>{t('contact_title')}</h2>
+        <p style={{ color: 'var(--muted)' }}>{t('contact_desc')}</p>
+      </motion.div>
+      
+      <motion.form 
+        onSubmit={onSubmit} 
+        className="contact-form"
+        variants={staggerContainer}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true }}
+      >
+        <motion.input 
+          variants={fadeInUp}
+          name="name" 
+          placeholder="Name" 
+          value={values.name} 
+          onChange={onChange} 
+          className="form-input"
+        />
+        <motion.input 
+          variants={fadeInUp}
+          name="email" 
+          placeholder="Email" 
+          value={values.email} 
+          onChange={onChange} 
+          type="email" 
+          className="form-input"
+        />
+        <motion.textarea 
+          variants={fadeInUp}
+          name="message" 
+          placeholder="Message" 
+          value={values.message} 
+          onChange={onChange} 
+          rows={5} 
+          className="form-input form-textarea"
+        />
+        <motion.button 
+          variants={fadeInUp}
+          type="submit" 
+          disabled={status==='sending'} 
+          className="submit-btn"
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.98 }}
+        >
+          {status === 'sending' ? (
+            <span className="submit-btn-loading">
+              <span className="submit-btn-spinner" />
+              Sending...
+            </span>
+          ) : (
+            t('contact_send')
+          )}
+        </motion.button>
+        {status==='sent' && (
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} role="status" className="form-status form-status-success">
+            ✓ Message prepared in your mail client.
+          </motion.div>
+        )}
+        {status==='error' && (
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} role="status" className="form-status form-status-error">
+            ✕ Please provide a valid email and message.
+          </motion.div>
+        )}
+      </motion.form>
+      
+      <motion.div 
+        className="contact-links"
+        initial={{ opacity: 0, x: -20 }}
+        whileInView={{ opacity: 1, x: 0 }}
+        viewport={{ once: true }}
+        transition={{ delay: 0.4 }}
+      >
+        <a href={`mailto:${email}`} className="contact-link">📧 Email</a>
+        <a href="https://github.com/TsikyLalaina" target="_blank" rel="noreferrer" className="contact-link">💻 GitHub</a>
+        <a href="https://www.linkedin.com/in/tsiky-loharanontsoa-7111b2272/" target="_blank" rel="noreferrer" className="contact-link">💼 LinkedIn</a>
+      </motion.div>
     </SectionWrapper>
   )
 }

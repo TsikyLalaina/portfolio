@@ -30,8 +30,9 @@ function App() {
   }, [theme])
   return (
     <div style={{ background: 'var(--bg)', color: 'var(--fg)' }}>
+      <a href="#main-content" className="skip-link">Skip to content</a>
       <Navbar />
-      <main>
+      <main id="main-content">
         <section id="home">
           <Hero3D />
         </section>
