@@ -90,8 +90,9 @@ body,
   border-color: color-mix(in oklab, var(--orange) 45%, transparent);
 }
 
-body {
+html, body {
   margin: 0;
+  overflow-x: hidden;
 }
 
 /* Subtle Animated Gradient Background */

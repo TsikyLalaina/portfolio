@@ -92,7 +92,7 @@ export function Hero3D() {
           style={{
             textAlign: 'center',
             maxWidth: '100%',
-            padding: 'clamp(24px, 5vw, 48px) clamp(32px, 8vw, 80px)',
+            padding: 'clamp(24px, 5vw, 48px) clamp(16px, 6vw, 80px)',
             borderRadius: 24,
             background: isLight ? 'rgba(255, 255, 255, 0.85)' : 'rgba(10, 11, 16, 0.45)',
             backdropFilter: isLight ? 'blur(24px)' : 'blur(12px)',
@@ -106,11 +106,12 @@ export function Hero3D() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.4, ease: "easeOut" }}
             style={{
-              fontSize: 'clamp(32px, 8vw, 64px)',
+              fontSize: 'clamp(28px, 8vw, 64px)',
               lineHeight: 1.05,
               margin: 0,
               color: isLight ? '#0a0a0a' : 'var(--fg)',
-              wordBreak: 'break-word',
+              wordBreak: 'normal',
+              overflowWrap: 'break-word',
               textShadow: isLight ? '0 2px 4px rgba(0, 0, 0, 0.1)' : '0 2px 8px rgba(0, 0, 0, 0.6), 0 4px 24px rgba(0, 0, 0, 0.4)'
             }}
           >
