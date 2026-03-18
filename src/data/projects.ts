@@ -110,8 +110,9 @@ export const projects: Project[] = [
     summary: 'Modern medical clinic web application for patient booking and clinic administration.',
     tags: ['Next.js', 'Medical', 'Fullstack'],
     heroColor: 'linear-gradient(135deg, #0d1b2a, #1b263b)',
+    url: 'https://c-caremg.vercel.app/',
     github: 'https://github.com/TsikyLalaina/C-Care',
-    image: new URL('../assets/ccare.png', import.meta.url).toString(),
+    image: new URL('../assets/c-care.png', import.meta.url).toString(),
     content: [
       'Bilingual patient interface (EN/FR) with comprehensive medical service details.',
       'Online booking system with multi-step wizard and integrated Stripe/Mobile Money payments.',
