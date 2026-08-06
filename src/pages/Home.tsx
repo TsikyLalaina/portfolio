@@ -1,19 +1,17 @@
-import { Hero3D } from '../components/Hero3D'
-import { Narrative } from '../components/Narrative'
-import { Projects, About, Contact } from '../components/Sections'
+import { Hero } from '../components/Hero'
+import { Marquee, Works, Process, About, Contact } from '../components/Sections'
 
 export default function Home() {
   return (
     <main>
       <section id="home">
-        <Hero3D />
+        <Hero />
       </section>
-      <Narrative />
-      <Projects />
+      <Marquee />
+      <Works />
+      <Process />
       <About />
       <Contact />
     </main>
   )
 }
-
-

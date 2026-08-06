@@ -1,20 +1,22 @@
 import { AnimatePresence, motion } from 'framer-motion'
 import { useEffect, useState } from 'react'
-import { useUIStore } from '../store/ui'
 
 export function IntroCinematic() {
-  const name = useUIStore((s) => s.placeholders.name)
   const [show, setShow] = useState(false)
 
   useEffect(() => {
-    const seen = localStorage.getItem('introSeen')
+    const seen = sessionStorage.getItem('introSeen')
+      || new URLSearchParams(window.location.search).has('nointro')
     if (!seen) {
       setShow(true)
+      // Cinematic beat, then hand over to the hero reveal
+      const timer = setTimeout(() => dismiss(), 2400)
+      return () => clearTimeout(timer)
     }
   }, [])
 
   const dismiss = () => {
-    localStorage.setItem('introSeen', '1')
+    sessionStorage.setItem('introSeen', '1')
     setShow(false)
   }
 
@@ -23,45 +25,55 @@ export function IntroCinematic() {
       {show && (
         <motion.div
           initial={{ opacity: 1 }}
-          animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          transition={{ duration: 0.6 }}
+          transition={{ duration: 0.7, ease: 'easeInOut' }}
           style={{
-            position: 'fixed', inset: 0, background: 'radial-gradient(1200px 600px at 50% -10%, var(--brand), var(--bg))',
-            display: 'grid', placeItems: 'center', zIndex: 100, padding: '24px',
+            position: 'fixed', inset: 0, background: 'var(--bg)',
+            display: 'grid', placeItems: 'center', zIndex: 100, padding: 24,
           }}
         >
+          <div style={{ textAlign: 'center', overflow: 'hidden' }}>
+            <motion.p
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+              style={{ fontSize: 12, letterSpacing: '0.4em', textTransform: 'uppercase', color: 'var(--gold)' }}
+            >
+              Portfolio
+            </motion.p>
+            <motion.div
+              className="intro-title"
+              initial={{ y: '105%' }}
+              animate={{ y: 0 }}
+              transition={{ duration: 1, delay: 0.35, ease: [0.22, 1, 0.36, 1] }}
+              style={{ fontSize: 'clamp(40px, 10vw, 96px)', lineHeight: 1.05, marginTop: 12 }}
+            >
+              Tsiky <em style={{ color: 'var(--gold)' }}>Lalaina</em>
+            </motion.div>
+          </div>
+
+          {/* Curtain sweep, then auto-dismiss */}
           <motion.div
-            initial={{ y: 30, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ duration: 0.8, ease: 'easeOut' }}
-            style={{ textAlign: 'center', maxWidth: '100%' }}
-          >
-            <div style={{ fontSize: 'clamp(12px, 3vw, 16px)', letterSpacing: 'clamp(2px, 1vw, 6px)', textTransform: 'uppercase', opacity: 0.8 }}>Presenting</div>
-            <div style={{ fontSize: 'clamp(36px, 12vw, 64px)', fontWeight: 800, marginTop: 'clamp(8px, 2vw, 16px)', wordBreak: 'break-word' }}>{name}</div>
-            <motion.button
-              onClick={dismiss}
-              className="btn-primary"
-              style={{ marginTop: 'clamp(16px, 4vw, 24px)', fontSize: 'clamp(14px, 3vw, 16px)' }}
-              whileTap={{ scale: 0.98 }}
-            >Enter</motion.button>
-          </motion.div>
-          <motion.div
-            initial={{ scaleX: 1, originX: 0 }}
-            animate={{ scaleX: 0 }}
-            exit={{ scaleX: 1, originX: 1 }}
-            transition={{ duration: 1.2, delay: 0.6, ease: 'anticipate' }}
-            style={{ position: 'absolute', inset: 0, background: 'var(--bg)', pointerEvents: 'none' }}
-            onAnimationComplete={() => { /* once sweep completes, auto-dismiss after a short delay */ setTimeout(dismiss, 400) }}
+            initial={{ scaleY: 0, originY: 1 }}
+            animate={{ scaleY: 0 }}
+            exit={{ scaleY: 1 }}
+            transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+            style={{ position: 'absolute', inset: 0, background: 'var(--gold)', pointerEvents: 'none', opacity: 0.12 }}
           />
-          <button onClick={dismiss} aria-label="Skip intro" style={{
-            position: 'absolute', right: 'clamp(12px, 3vw, 16px)', bottom: 'clamp(12px, 3vw, 16px)',
-            background: 'var(--panel)', border: '1px solid var(--panelBorder)', color: 'var(--fg)', borderRadius: 10, padding: 'clamp(6px, 1.5vw, 8px) clamp(10px, 2vw, 12px)', fontSize: 'clamp(12px, 2vw, 14px)'
-          }}>Skip</button>
+          <button
+            onClick={dismiss}
+            aria-label="Skip intro"
+            style={{
+              position: 'absolute', right: 20, bottom: 20,
+              background: 'transparent', border: '1px solid var(--line)', color: 'var(--muted)',
+              borderRadius: 999, padding: '8px 18px', fontSize: 12, letterSpacing: '0.14em',
+              textTransform: 'uppercase', cursor: 'pointer', fontFamily: 'var(--font-body)',
+            }}
+          >
+            Skip
+          </button>
         </motion.div>
       )}
     </AnimatePresence>
   )
 }
-
-
