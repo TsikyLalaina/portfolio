@@ -22,3 +22,6 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Camera originals (18MB+) — derived crops in src/assets are what the site uses
+src/assets/20260724_104049.jpg

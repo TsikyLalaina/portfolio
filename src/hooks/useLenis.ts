@@ -18,6 +18,7 @@ export function useLenis() {
       lerp: 0.1,
       smoothWheel: true,
       syncTouch: false, // Ensure this is false or just relying on conditional init
+      anchors: true, // in-page #links, since html scroll-behavior is no longer smooth
     })
     lenisRef.current = lenis
 
