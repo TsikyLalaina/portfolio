@@ -54,13 +54,17 @@ export function ProjectPage() {
         <motion.div className="pp-frame" custom={3} variants={rise} initial="hidden" animate="visible">
           {project.url && (
             <div className="pp-live-bar">
-              <span><span className="pp-live-dot" />Live preview</span>
+              <span>
+                {project.noEmbed
+                  ? 'Private app — screenshot'
+                  : <><span className="pp-live-dot" />Live preview</>}
+              </span>
               <a href={project.url} target="_blank" rel="noreferrer" className="pp-open-live">
                 Open site <FiExternalLink />
               </a>
             </div>
           )}
-          {project.url ? (
+          {project.url && !project.noEmbed ? (
             <iframe
               src={project.url}
               title={`${project.title} live preview`}

@@ -6,6 +6,8 @@ export type Project = {
   heroColor: string
   content: string[]
   url?: string
+  /** Site refuses framing (X-Frame-Options) or sits behind auth — show `image` instead of a live iframe. */
+  noEmbed?: boolean
   github?: string
   image?: string
   problem?: string
@@ -24,8 +26,9 @@ export const projects: Project[] = [
     summary: 'Product work on a French construction-management SaaS: quotes, projects, budgets, orders, time tracking and accounting.',
     tags: ['Next.js', 'tRPC', 'Prisma', 'Monorepo', 'Fullstack'],
     heroColor: 'linear-gradient(135deg, #12212f, #24435c)',
-    url: 'https://app-staging.vispacem.ai/fr/',
-    image: new URL('../assets/vispacem.png', import.meta.url).toString(),
+    url: 'https://app.kydock.com/fr',
+    noEmbed: true,
+    image: new URL('../assets/kydock.png', import.meta.url).toString(),
     content: [
       'Turborepo/pnpm monorepo hosting a dozen apps behind one design system and data layer.',
       'Dashboard of configurable widgets: order book, revenue, payment delays, document status.',

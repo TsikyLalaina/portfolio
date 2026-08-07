@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react'
 import { useUIStore } from '../store/ui'
 import { useI18n } from '../i18n'
 import { emails, githubAccounts, linkedin } from '../data/contacts'
+import { Logo } from './Logo'
 
 const navItems = [
   { key: 'nav_work', href: '#work' },
@@ -38,7 +39,9 @@ export function Navbar() {
         animate={{ y: 0 }}
         transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1], delay: 0.2 }}
       >
-        <a href="/#home" className="nav-wordmark">Tsiky<em>.</em></a>
+        <a href="/#home" className="nav-wordmark" aria-label="Home">
+          <Logo size={34} />
+        </a>
 
         <div className="nav-links">
           {navItems.map((item) => (
